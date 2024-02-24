@@ -2,26 +2,34 @@ import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import { useState, useRef, useEffect } from 'react';
 import { Select } from '../select';
-import { fontFamilyOptions } from 'src/constants/articleProps';
+import {
+	fontFamilyOptions,
+	fontSizeOptions,
+	fontColors,
+	backgroundColors,
+	contentWidthArr,
+	OptionType,
+	defaultArticleState
+} from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group';
-import { fontSizeOptions } from 'src/constants/articleProps';
-import { fontColors } from 'src/constants/articleProps';
-import { backgroundColors } from 'src/constants/articleProps';
+
 import { Separator } from '../separator';
-import { contentWidthArr } from 'src/constants/articleProps';
+
 import { Text } from '../text';
-import { OptionType } from 'src/constants/articleProps';
+
 import type { CustomCSSProperties } from 'src/constants/articleProps';
 import clsx from 'clsx';
 
 import styles from './ArticleParamsForm.module.scss';
 
 interface ArticleParamsFormProps {
+	initialArticleState: CustomCSSProperties;
 	articleState: CustomCSSProperties;
 	setArticleState: (state: CustomCSSProperties) => void;
 }
 
 export const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({
+	initialArticleState,
 	articleState,
 	setArticleState,
 }) => {
@@ -100,7 +108,8 @@ export const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({
 	};
 
 	const handleReset = () => {
-		setUpdatedArticleState(articleState);
+		setUpdatedArticleState(initialArticleState);
+		setArticleState(initialArticleState);
 	};
 
 	return (
@@ -162,9 +171,12 @@ export const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({
 					<Select
 						title='Ширина контента'
 						options={contentWidthArr}
-						selected={findSelectedOption(
-							contentWidthArr, updatedArticleState['--container-width']
-						) || null}
+						selected={
+							findSelectedOption(
+								contentWidthArr,
+								updatedArticleState['--container-width']
+							) || null
+						}
 						onChange={handleContentWidthChange}
 					/>
 					<div className={styles.bottomContainer}>

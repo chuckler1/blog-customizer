@@ -6,7 +6,7 @@ export const Button = ({
 	title,
 	onClick,
 	type,
-	onSubmit
+	onSubmit,
 }: {
 	title: string;
 	onClick?: () => void;
@@ -14,10 +14,7 @@ export const Button = ({
 	type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }) => {
 	return (
-		<button
-			className={styles.button}
-			type={type}
-			onClick={onClick || onSubmit}>
+		<button className={styles.button} type={type} onClick={onClick || onSubmit}>
 			<Text weight={800} uppercase>
 				{title}
 			</Text>

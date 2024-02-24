@@ -3,7 +3,6 @@
 	top: 31px;
 	display: flex;
 	flex-shrink: 0;
-	cursor: pointer;
 	justify-content: center;
 	align-items: center;
 	box-sizing: border-box;
@@ -11,6 +10,7 @@
 	height: 100px;
 	background-color: #000000;
 	border-right: 1px;
+	cursor: pointer;
 	transition: transform 0.5s ease;
 }
 

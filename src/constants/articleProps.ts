@@ -186,4 +186,4 @@ export type CustomCSSProperties = CSSProperties & {
 	'--font-color'?: string;
 	'--container-width'?: string;
 	'--bg-color'?: string;
-  };
+};
