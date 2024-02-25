@@ -1,6 +1,7 @@
 import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
+import { useClose } from './hooks/useClose';
 import { Select } from '../select';
 import {
 	fontFamilyOptions,
@@ -9,7 +10,7 @@ import {
 	backgroundColors,
 	contentWidthArr,
 	OptionType,
-	defaultArticleState
+	initialArticleState
 } from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group';
 
@@ -23,16 +24,14 @@ import clsx from 'clsx';
 import styles from './ArticleParamsForm.module.scss';
 
 interface ArticleParamsFormProps {
-	initialArticleState: CustomCSSProperties;
 	articleState: CustomCSSProperties;
 	setArticleState: (state: CustomCSSProperties) => void;
 }
 
-export const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({
-	initialArticleState,
+export const ArticleParamsForm = ({
 	articleState,
 	setArticleState,
-}) => {
+}: ArticleParamsFormProps) => {
 	const [updatedArticleState, setUpdatedArticleState] =
 		useState<CustomCSSProperties>(articleState);
 
@@ -43,21 +42,15 @@ export const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({
 		setIsOpen(true);
 	};
 
-	useEffect(() => {
-		if (isOpen) {
-			const handleClickOutside = (event: MouseEvent) => {
-				if (ref.current && !ref.current.contains(event.target as Node)) {
-					setIsOpen(false);
-				}
-			};
+	const onClose = () => {
+		setIsOpen(false);
+	};
 
-			document.addEventListener('mousedown', handleClickOutside);
-
-			return () => {
-				document.removeEventListener('mousedown', handleClickOutside);
-			};
-		}
-	}, [isOpen]);
+	useClose({
+		isOpen,
+		onClose,
+		rootRef: ref,
+	});
 
 	const findSelectedOption = (
 		options: OptionType[],
@@ -67,39 +60,31 @@ export const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({
 		return options.find((option) => option.value === value);
 	};
 
-	const handleFontFamilyChange = (value: OptionType) => {
+	const handlePropertyChange = (property: string, value: OptionType) => {
 		setUpdatedArticleState({
-			...updatedArticleState,
-			'--font-family': value.value,
+		  ...updatedArticleState,
+		  [property]: value.value,
 		});
+	};
+
+	const handleFontFamilyChange = (value: OptionType) => {
+		handlePropertyChange('--font-family', value);
 	};
 
 	const handleFontSizeChange = (value: OptionType) => {
-		setUpdatedArticleState({
-			...updatedArticleState,
-			'--font-size': value.value,
-		});
+		handlePropertyChange('--font-size', value);
 	};
 
 	const handleFontColorChange = (value: OptionType) => {
-		setUpdatedArticleState({
-			...updatedArticleState,
-			'--font-color': value.value,
-		});
+		handlePropertyChange('--font-color', value);
 	};
 
 	const handleBackgroundColorChange = (value: OptionType) => {
-		setUpdatedArticleState({
-			...updatedArticleState,
-			'--bg-color': value.value,
-		});
+		handlePropertyChange('--bg-color', value);
 	};
 
 	const handleContentWidthChange = (value: OptionType) => {
-		setUpdatedArticleState({
-			...updatedArticleState,
-			'--container-width': value.value,
-		});
+		handlePropertyChange('--container-width', value);
 	};
 
 	const handleSubmit = (e: React.FormEvent) => {
@@ -118,7 +103,7 @@ export const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({
 			<aside
 				ref={ref}
 				className={clsx(styles.container, isOpen && styles.container_open)}>
-				<form className={styles.form} style={{ gap: 50 }}>
+				<form className={styles.form} style={{ gap: 50 }} onSubmit={handleSubmit}>
 					<Text as='h2' size={31} uppercase={true} weight={800}>
 						Задайте параметры
 					</Text>
@@ -181,7 +166,7 @@ export const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({
 					/>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' type='reset' onClick={handleReset} />
-						<Button title='Применить' type='submit' onSubmit={handleSubmit} />
+						<Button title='Применить' type='submit' />
 					</div>
 				</form>
 			</aside>
