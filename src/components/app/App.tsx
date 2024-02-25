@@ -3,12 +3,13 @@ import { Article } from '../article/Article';
 import { ArticleParamsForm } from '../article-params-form/ArticleParamsForm';
 import {
 	CustomCSSProperties,
-	initialArticleState
+	initialArticleState,
 } from '../../constants/articleProps';
 import styles from './index.module.scss';
 
 export const App = () => {
-	const [articleState, setArticleState] = useState<CustomCSSProperties>(initialArticleState);
+	const [articleState, setArticleState] =
+		useState<CustomCSSProperties>(initialArticleState);
 
 	return (
 		<div className={styles.main} style={articleState}>

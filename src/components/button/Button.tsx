@@ -5,7 +5,7 @@ import styles from './Button.module.scss';
 export const Button = ({
 	title,
 	onClick,
-	type
+	type,
 }: {
 	title: string;
 	onClick?: () => void;

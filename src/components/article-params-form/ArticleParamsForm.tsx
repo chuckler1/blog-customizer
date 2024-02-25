@@ -10,7 +10,7 @@ import {
 	backgroundColors,
 	contentWidthArr,
 	OptionType,
-	initialArticleState
+	initialArticleState,
 } from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group';
 
@@ -62,8 +62,8 @@ export const ArticleParamsForm = ({
 
 	const handlePropertyChange = (property: string, value: OptionType) => {
 		setUpdatedArticleState({
-		  ...updatedArticleState,
-		  [property]: value.value,
+			...updatedArticleState,
+			[property]: value.value,
 		});
 	};
 
@@ -103,7 +103,10 @@ export const ArticleParamsForm = ({
 			<aside
 				ref={ref}
 				className={clsx(styles.container, isOpen && styles.container_open)}>
-				<form className={styles.form} style={{ gap: 50 }} onSubmit={handleSubmit}>
+				<form
+					className={styles.form}
+					style={{ gap: 50 }}
+					onSubmit={handleSubmit}>
 					<Text as='h2' size={31} uppercase={true} weight={800}>
 						Задайте параметры
 					</Text>

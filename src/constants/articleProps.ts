@@ -193,5 +193,5 @@ export const initialArticleState: CustomCSSProperties = {
 	'--font-size': defaultArticleState.fontSizeOption.value,
 	'--font-color': defaultArticleState.fontColor.value,
 	'--container-width': defaultArticleState.contentWidth.value,
-	'--bg-color': defaultArticleState.backgroundColor.value
-}
+	'--bg-color': defaultArticleState.backgroundColor.value,
+};
