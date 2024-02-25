@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 export const fontFamilyClasses = [
 	'open-sans',
 	'ubuntu',
@@ -177,3 +179,19 @@ export const defaultArticleState = {
 };
 
 export type ArticleStateType = typeof defaultArticleState;
+
+export type CustomCSSProperties = CSSProperties & {
+	'--font-family'?: string;
+	'--font-size'?: string;
+	'--font-color'?: string;
+	'--container-width'?: string;
+	'--bg-color'?: string;
+};
+
+export const initialArticleState: CustomCSSProperties = {
+	'--font-family': defaultArticleState.fontFamilyOption.value,
+	'--font-size': defaultArticleState.fontSizeOption.value,
+	'--font-color': defaultArticleState.fontColor.value,
+	'--container-width': defaultArticleState.contentWidth.value,
+	'--bg-color': defaultArticleState.backgroundColor.value,
+};
